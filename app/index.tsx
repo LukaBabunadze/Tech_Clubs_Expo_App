@@ -1,69 +1,39 @@
-import { StatusBar } from "expo-status-bar";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 
 export default function Index() {
   return (
-    <>
-      <StatusBar style="dark" />
-      <View style={styles.container}>
-        <View style={styles.child}>
-          <Text style={styles.title}>1</Text>
-        </View>
-        <View style={styles.child}>
-          <Text style={styles.title}>2</Text>
-        </View>
-        <View style={styles.child}>
-          <Text style={styles.title}>3</Text>
-        </View>
-        <View style={styles.child}>
-          <Text style={styles.title}>2</Text>
-        </View>
-        <View style={styles.child}>
-          <Text style={styles.title}>3</Text>
-        </View>
-        <View style={styles.child}>
-          <Text style={styles.title}>2</Text>
-        </View>
-        <View style={styles.child}>
-          <Text style={styles.title}>3</Text>
-        </View>
-        <View style={styles.child}>
-          <Text style={styles.title}>3</Text>
-        </View>
-      </View>
-    </>
+    <View style={styles.container}>
+      <Image
+        // source={require("@/assets/images/favicon.png")}
+        source={{uri: 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg'}}
+        style={styles.img}
+        resizeMode="contain"
+      />
+      <Text style={styles.title}>This is for Flexbox and Image testing</Text>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "red",
-    height: 380,
-    width: "95%",
-    margin: 10,
-    borderWidth: 5,
-    borderColor: "black",
-    display: "flex",
-    // flexDirection: "column",
-    // justifyContent: "space-between",
-    // alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "center", //flex-start; flex-end; center, space-between, space-around, space-evenly
-    alignItems: "flex-start", //flex-start; flex-end; center
-    flexWrap: "wrap",
-    alignContent: "center", ////flex-start; flex-end; center, space-between, space-around, space-evenly
-    // rowGap: 10,
-    // columnGap: 10,
-    gap: 10,
+    height: 300,
+    width: 280,
+    backgroundColor: "gray",
+    borderRadius: 10,
+    margin: 20,
+    overflow: 'hidden',
   },
-  child: {
-    height: 80,
-    width: 80,
-    backgroundColor: "blue",
-    borderWidth: 5,
+  img: {
+    width: '100%',
+    height: '50%',
+    backgroundColor: "black",
+    // borderRadius: 10,
+    // borderTopLeftRadius: 10,
+    // borderTopRightRadius: 10,
   },
   title: {
-    color: "white",
-    fontSize: 30,
+    fontSize: 28,
+    color: 'white',
+    textAlign: "center",
   },
 });
