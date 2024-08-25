@@ -1,10 +1,11 @@
-import { Image, Pressable, StyleSheet, Text } from "react-native";
+import { Image, Pressable, StyleSheet, Text, Button } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
 import Entypo from "@expo/vector-icons/Entypo";
+import { Link, router } from "expo-router";
 
 const ProductItem = ({ product }) => {
   const handlePress = () => {
-    console.log("button pressed!");
+    router.navigate(`/(tabs)/products/singleProduct/${product.id}`);
   };
 
   return (
@@ -22,6 +23,9 @@ const ProductItem = ({ product }) => {
       <Text numberOfLines={4} style={styles.desc}>
         {product.description}
       </Text>
+      <Link href={`/(tabs)/products/singleProduct/${product.id}`}>
+        go to details
+      </Link>
     </Pressable>
   );
 };
