@@ -2,7 +2,7 @@ import { View, StyleSheet, FlatList } from "react-native";
 import ProductItem from "@/components/productItem/ProductItem";
 import Title from '@/components/title/Title'
 
-const data = [
+export const data = [
   {
     id: 0,
     name: "Apple Watch",
