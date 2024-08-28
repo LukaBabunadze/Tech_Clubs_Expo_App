@@ -18,8 +18,6 @@ const SingleProduct = () => {
 
   const handleBuy = () => console.log("Buy This Product");
 
-  console.log(Platform.OS);
-
   return (
     <>
       <ImageBackground
