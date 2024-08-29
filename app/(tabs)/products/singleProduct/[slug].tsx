@@ -5,30 +5,36 @@ import {
   View,
   Platform,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
-import { data } from "@/app/(tabs)/products/index";
 import { windowHeigth, windowWidth } from "@/constants/windowSize";
 
 const SingleProduct = () => {
   const { slug } = useLocalSearchParams();
+  const [singleProduct, setSingleProduct] = useState({});
 
-  const filteredProduct = data.filter((item) => item.id == slug)[0];
+  useEffect(() => {
+    fetch(`https://fakestoreapi.com/products/${slug}`)
+      .then((response) => response.json())
+      .then((result) => setSingleProduct(result));
+  }, []);
 
   const handleBuy = () => console.log("Buy This Product");
 
   return (
-    <>
+    <ScrollView>
       <ImageBackground
-        source={{ uri: filteredProduct.image }}
+        source={{ uri: singleProduct.image }}
         style={styles.imgBackground}
+        resizeMode="contain"
       >
         <View style={styles.headerWrapper}>
-          <Text style={styles.title}>{filteredProduct.name}</Text>
+          <Text style={styles.title}>{singleProduct.title}</Text>
         </View>
       </ImageBackground>
-      <Text style={styles.desc}>{filteredProduct.description}</Text>
+      <Text style={styles.desc}>{singleProduct.description}</Text>
       <TouchableOpacity
         onPress={handleBuy}
         style={[
@@ -40,7 +46,7 @@ const SingleProduct = () => {
       >
         <Text style={styles.buttonTitle}>Buy</Text>
       </TouchableOpacity>
-    </>
+    </ScrollView>
   );
 };
 
@@ -50,7 +56,6 @@ const styles = StyleSheet.create({
   imgBackground: {
     height: windowHeigth / 3,
     width: "100%",
-    resizeMode: "stretch",
   },
   headerWrapper: {
     height: windowHeigth / 3,

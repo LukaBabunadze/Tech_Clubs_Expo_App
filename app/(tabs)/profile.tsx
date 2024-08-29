@@ -1,10 +1,12 @@
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../_layout";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const profile = () => {
-  const [user, setUser] = useState(null);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("michael_johnson");
+  const [password, setPassword] = useState("Michael123!");
+  const { user, setUser } = useContext(UserContext);
 
   const handleLogin = () => {
     fetch("https://fakeauthentication-api.onrender.com/api/staticUsers/login", {
@@ -16,8 +18,18 @@ const profile = () => {
         return response.json();
       })
       .then((result) => {
-        setUser(result.user);
+        handleUserSave(result);
       });
+  };
+
+  const handleUserLogout = async () => {
+    await AsyncStorage.removeItem("user");
+    setUser(null);
+  };
+
+  const handleUserSave = async (result) => {
+    await AsyncStorage.setItem("user", JSON.stringify(result.user));
+    setUser(result.user);
   };
 
   return (
@@ -27,6 +39,7 @@ const profile = () => {
           <Text style={styles.userInfo}>username: {user.username}</Text>
           <Text style={styles.userInfo}>email: {user.email}</Text>
           <Text style={styles.userInfo}>name: {user.name}</Text>
+          <Button title="Log Out" onPress={handleUserLogout} />
         </>
       ) : (
         <>
